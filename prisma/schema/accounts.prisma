@@ -1,0 +1,58 @@
+model Account {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  users    User[]
+  events   Event[]
+  sessions Session[]
+  summary  AccountSummary?
+
+  @@map("accounts")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  accountId     String    @map("account_id")
+  name          String?
+  email         String    @unique
+  pendingEmail  String?   @unique @map("pending_email")
+  emailVerified DateTime? @map("email_verified")
+  passwordHash  String?   @map("password_hash")
+  image         String?
+  lastSeenAt    DateTime? @map("last_seen_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  account  Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  sessions Session[]
+
+  @@index([accountId], name: "idx_users_account_id")
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id")
+  accountId    String?  @map("account_id")
+  expires      DateTime
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@index([userId], name: "idx_sessions_user_id")
+  @@index([accountId], name: "idx_sessions_account_id")
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}

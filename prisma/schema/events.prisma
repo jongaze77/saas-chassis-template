@@ -1,0 +1,36 @@
+model Event {
+  id            String    @default(cuid())
+  accountId     String    @map("account_id")
+  type          EventType
+  actorId       String    @map("actor_id")
+  actorType     ActorType @map("actor_type")
+  targetType    String?   @map("target_type")
+  targetId      String?   @map("target_id")
+  payload       Json?
+  parentEventId String?   @map("parent_event_id")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  account     Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  parentEvent Event?  @relation("EventChain", fields: [parentEventId, accountId], references: [id, accountId])
+  childEvents Event[] @relation("EventChain")
+
+  @@id([id, accountId])
+  @@index([accountId, createdAt(sort: Desc)], name: "idx_events_account_id_created_at")
+  @@map("events")
+}
+
+model AccountSummary {
+  id                       String    @id @default(cuid())
+  accountId                String    @unique @map("account_id")
+  totalSites               Int       @default(0) @map("total_sites")
+  totalPages               Int       @default(0) @map("total_pages")
+  pendingRecommendations   Int       @default(0) @map("pending_recommendations")
+  acceptedRecommendations  Int       @default(0) @map("accepted_recommendations")
+  dismissedRecommendations Int       @default(0) @map("dismissed_recommendations")
+  lastSyncAt               DateTime? @map("last_sync_at")
+  updatedAt                DateTime  @updatedAt @map("updated_at")
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("account_summaries")
+}
