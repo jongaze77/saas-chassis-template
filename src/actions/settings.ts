@@ -266,7 +266,7 @@ export async function requestEmailChange(formData: FormData) {
     // entirely. For Pilot MVP this is acceptable (complete Inngest outage is rare), but
     // a future improvement should either: (1) fail the request when send() throws, or
     // (2) implement a background retry job for failed email dispatches.
-    // See: https://github.com/<org>/seopluginpress/issues — create retry-dispatch task.
+    // TODO: Implement a background retry job for failed email dispatches.
     try {
       await inngest.send({
         name: "auth/email-change.requested",
@@ -362,7 +362,7 @@ export async function confirmEmailChange(token: string) {
     // 4. Check token expiry — same generic error (security)
     // TECH DEBT: If the delete below fails, the expired token remains in the DB.
     // A background cleanup job should periodically purge expired VerificationTokens.
-    // See: https://github.com/<org>/seopluginpress/issues — create cleanup task.
+    // TODO: Implement a background cleanup job for expired verification tokens.
     if (tokenRecord.expires < new Date()) {
       await prisma.verificationToken.delete({
         where: {

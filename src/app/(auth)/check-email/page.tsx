@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
 import { ResendVerificationForm } from "@/components/auth/ResendVerificationForm";
+import { appConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Check your email - SEO PluginPress",
+  title: `Check your email - ${appConfig.name}`,
   description: "Verify your email address to complete registration",
 };
 

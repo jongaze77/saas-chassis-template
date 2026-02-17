@@ -6,11 +6,7 @@
 /** Route-to-label mapping for all known dashboard routes. */
 export const routeLabels: Record<string, string> = {
   "/dashboard": "Dashboard",
-  "/triage": "Triage",
-  "/sites": "Sites",
-  "/activity": "Activity",
   "/settings": "Settings",
-  "/assignments": "Assignments",
 };
 
 /**

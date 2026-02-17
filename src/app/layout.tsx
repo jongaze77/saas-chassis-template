@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { appConfig } from "@/lib/config";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SEO PluginPress",
-  description: "AI-native SEO Triage & Orchestration Platform",
+  title: appConfig.name,
+  description: appConfig.description,
 };
 
 export default function RootLayout({

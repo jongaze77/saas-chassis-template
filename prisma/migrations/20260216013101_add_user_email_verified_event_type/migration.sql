@@ -1,2 +1,0 @@
--- AlterEnum
-ALTER TYPE "event_type" ADD VALUE 'USER_EMAIL_VERIFIED';

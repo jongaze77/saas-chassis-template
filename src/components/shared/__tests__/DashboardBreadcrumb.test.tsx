@@ -14,31 +14,15 @@ describe("DashboardBreadcrumb", () => {
 
   describe("route label mapping (shared from @/lib/navigation)", () => {
     it("maps all known dashboard routes to display labels", () => {
-      expect(Object.keys(routeLabels)).toHaveLength(6);
+      expect(Object.keys(routeLabels)).toHaveLength(2);
     });
 
     it("/dashboard maps to 'Dashboard'", () => {
       expect(routeLabels["/dashboard"]).toBe("Dashboard");
     });
 
-    it("/triage maps to 'Triage'", () => {
-      expect(routeLabels["/triage"]).toBe("Triage");
-    });
-
-    it("/sites maps to 'Sites'", () => {
-      expect(routeLabels["/sites"]).toBe("Sites");
-    });
-
-    it("/activity maps to 'Activity'", () => {
-      expect(routeLabels["/activity"]).toBe("Activity");
-    });
-
     it("/settings maps to 'Settings'", () => {
       expect(routeLabels["/settings"]).toBe("Settings");
-    });
-
-    it("/assignments maps to 'Assignments'", () => {
-      expect(routeLabels["/assignments"]).toBe("Assignments");
     });
   });
 
@@ -53,10 +37,6 @@ describe("DashboardBreadcrumb", () => {
 
     it("sub-route /dashboard/overview matches parent /dashboard → 'Dashboard'", () => {
       expect(resolveRouteLabel("/dashboard/overview")).toBe("Dashboard");
-    });
-
-    it("sub-route /sites/123/edit matches parent /sites → 'Sites'", () => {
-      expect(resolveRouteLabel("/sites/123/edit")).toBe("Sites");
     });
 
     it("unknown route falls back to capitalised first segment", () => {

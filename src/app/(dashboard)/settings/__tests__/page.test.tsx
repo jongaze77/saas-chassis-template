@@ -106,9 +106,10 @@ describe("Settings Page", () => {
   });
 
   it("exports page metadata with correct title", async () => {
+    const { appConfig } = await import("@/lib/config");
     const pageModule = await import("@/app/(dashboard)/settings/page");
     expect(pageModule.metadata).toBeDefined();
-    expect(pageModule.metadata.title).toBe("Account Settings | SEO PluginPress");
+    expect(pageModule.metadata.title).toBe(`Account Settings | ${appConfig.name}`);
   });
 
   it("calls auth() to check session", async () => {

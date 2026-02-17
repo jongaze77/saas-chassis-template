@@ -20,15 +20,11 @@ model Event {
 }
 
 model AccountSummary {
-  id                       String    @id @default(cuid())
-  accountId                String    @unique @map("account_id")
-  totalSites               Int       @default(0) @map("total_sites")
-  totalPages               Int       @default(0) @map("total_pages")
-  pendingRecommendations   Int       @default(0) @map("pending_recommendations")
-  acceptedRecommendations  Int       @default(0) @map("accepted_recommendations")
-  dismissedRecommendations Int       @default(0) @map("dismissed_recommendations")
-  lastSyncAt               DateTime? @map("last_sync_at")
-  updatedAt                DateTime  @updatedAt @map("updated_at")
+  id        String   @id @default(cuid())
+  accountId String   @unique @map("account_id")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Add your domain-specific summary fields here
 
   account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 

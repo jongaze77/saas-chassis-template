@@ -32,9 +32,10 @@ describe("Dashboard Page", () => {
   });
 
   it("exports page metadata with correct title", async () => {
+    const { appConfig } = await import("@/lib/config");
     const pageModule = await import("@/app/(dashboard)/dashboard/page");
     expect(pageModule.metadata).toBeDefined();
-    expect(pageModule.metadata.title).toBe("Dashboard | SEO PluginPress");
+    expect(pageModule.metadata.title).toBe(`Dashboard | ${appConfig.name}`);
   });
 
   describe("welcome message logic", () => {
@@ -67,31 +68,6 @@ describe("Dashboard Page", () => {
       const userName = null;
       const message = userName ? `Welcome back, ${userName}` : "Welcome";
       expect(message).not.toBe("Welcome back, Welcome");
-    });
-  });
-
-  describe("dashboard content structure", () => {
-    it("renders all 3 empty-state card data (Priority Actions, Connected Sites, Recent Activity)", () => {
-      const expectedCards = [
-        { title: "Priority Actions", href: "/triage", actionLabel: "View Triage" },
-        { title: "Connected Sites", href: "/sites", actionLabel: "Connect a Site" },
-        { title: "Recent Activity", href: "/activity", actionLabel: "View Activity" },
-      ];
-      expect(expectedCards).toHaveLength(3);
-      // Each card has title, href, and actionLabel
-      expectedCards.forEach((card) => {
-        expect(card.title).toBeTruthy();
-        expect(card.href).toMatch(/^\//);
-        expect(card.actionLabel).toBeTruthy();
-      });
-    });
-
-    it("card links point to correct dashboard routes", () => {
-      const cardHrefs = ["/triage", "/sites", "/activity"];
-      const validRoutes = ["/triage", "/sites", "/activity", "/dashboard", "/settings"];
-      cardHrefs.forEach((href) => {
-        expect(validRoutes).toContain(href);
-      });
     });
   });
 });

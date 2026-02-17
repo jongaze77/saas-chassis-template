@@ -8,7 +8,6 @@ import { SidebarErrorBoundary } from "@/components/shared/SidebarErrorBoundary";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth";
-import { featureFlags } from "@/lib/featureFlags";
 import { logger } from "@/lib/logger";
 
 export default async function DashboardLayout({
@@ -75,7 +74,6 @@ export default async function DashboardLayout({
         <AppSidebar
           userName={session.user.name}
           userEmail={session.user.email}
-          showAssignments={featureFlags.FEATURE_ASSIGNMENTS}
           hasCookiePreference={hasCookiePreference}
         />
       </SidebarErrorBoundary>

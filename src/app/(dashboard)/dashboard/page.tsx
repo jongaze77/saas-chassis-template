@@ -1,11 +1,10 @@
-import { Activity, Globe, ListChecks } from "lucide-react";
 import type { Metadata } from "next";
 
-import { EmptyDashboardCard } from "@/components/dashboard/EmptyDashboardCard";
 import { auth } from "@/lib/auth";
+import { appConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Dashboard | SEO PluginPress",
+  title: `Dashboard | ${appConfig.name}`,
 };
 
 export default async function DashboardPage() {
@@ -22,27 +21,12 @@ export default async function DashboardPage() {
         {userName ? `Welcome back, ${userName}` : "Welcome"}
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <EmptyDashboardCard
-          icon={ListChecks}
-          title="Priority Actions"
-          description="Your prioritised triage recommendations will appear here once your sites are analysed."
-          actionLabel="View Triage"
-          actionHref="/triage"
-        />
-        <EmptyDashboardCard
-          icon={Globe}
-          title="Connected Sites"
-          description="No sites connected yet — Connect your first WordPress site to get started."
-          actionLabel="Connect a Site"
-          actionHref="/sites"
-        />
-        <EmptyDashboardCard
-          icon={Activity}
-          title="Recent Activity"
-          description="Your team's recent actions and platform activity will appear here."
-          actionLabel="View Activity"
-          actionHref="/activity"
-        />
+        <div className="rounded-lg border bg-card p-6 text-card-foreground shadow-sm">
+          <h3 className="text-lg font-semibold">Get Started</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Welcome to your new application. Start building your features here.
+          </p>
+        </div>
       </div>
     </div>
   );

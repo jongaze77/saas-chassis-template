@@ -3,9 +3,10 @@ import { redirect } from "next/navigation";
 
 import { verifyEmail } from "@/actions/auth";
 import { ResendVerificationForm } from "@/components/auth/ResendVerificationForm";
+import { appConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Verify Email - SEO PluginPress",
+  title: `Verify Email - ${appConfig.name}`,
   description: "Email verification",
 };
 

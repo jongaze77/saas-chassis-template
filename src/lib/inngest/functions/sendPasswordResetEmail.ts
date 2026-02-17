@@ -1,3 +1,4 @@
+import { appConfig } from "@/lib/config";
 import { EMAIL_FROM, resend } from "@/lib/email/resend";
 import { PasswordReset } from "@/lib/email/templates/passwordReset";
 import { env } from "@/lib/env";
@@ -15,7 +16,7 @@ export const sendPasswordResetEmail = inngest.createFunction(
     const { error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: email,
-      subject: "Reset your password - SEO PluginPress",
+      subject: `Reset your password - ${appConfig.name}`,
       react: PasswordReset({ resetUrl, name }),
     });
 

@@ -7,10 +7,11 @@ import { ProfileForm } from "@/components/settings/ProfileForm";
 import { TeamMembersList } from "@/components/settings/TeamMembersList";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
+import { appConfig } from "@/lib/config";
 import { createTenantScopedClient } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "Account Settings | SEO PluginPress",
+  title: `Account Settings | ${appConfig.name}`,
 };
 
 export default async function SettingsPage() {

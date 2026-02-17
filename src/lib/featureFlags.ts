@@ -1,15 +1,14 @@
+// Feature flags pattern: add your domain-specific feature flags here.
+// Use environment variables or a feature flag service to toggle features
+// per environment (development, staging, production).
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface FeatureFlags {
-  FEATURE_ASSIGNMENTS: boolean;
-  FEATURE_PERMISSIONS: boolean;
-  FEATURE_BILLING: boolean;
-  FEATURE_SELF_SERVICE: boolean;
+  // Add your feature flags here, e.g.: FEATURE_EXAMPLE: boolean;
 }
 
 export const featureFlags: FeatureFlags = {
-  FEATURE_ASSIGNMENTS: false,
-  FEATURE_PERMISSIONS: false,
-  FEATURE_BILLING: false,
-  FEATURE_SELF_SERVICE: false,
+  // Example: FEATURE_EXAMPLE: false,
 };
 
 export function isFeatureEnabled(flag: keyof FeatureFlags): boolean {
