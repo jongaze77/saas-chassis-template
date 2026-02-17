@@ -30,8 +30,8 @@ export function PasswordReset({ resetUrl, name }: PasswordResetProps) {
                 </h1>
                 <p>Hi {name || "there"},</p>
                 <p>
-                  We received a request to reset the password for your SEO PluginPress
-                  account. Click the link below to set a new password:
+                  We received a request to reset the password for your account.
+                  Click the link below to set a new password:
                 </p>
                 <p>
                   <a

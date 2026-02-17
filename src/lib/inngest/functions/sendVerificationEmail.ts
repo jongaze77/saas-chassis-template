@@ -1,3 +1,4 @@
+import { appConfig } from "@/lib/config";
 import { EMAIL_FROM, resend } from "@/lib/email/resend";
 import { EmailVerification } from "@/lib/email/templates/emailVerification";
 import { env } from "@/lib/env";
@@ -15,7 +16,7 @@ export const sendVerificationEmail = inngest.createFunction(
     const { error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: email,
-      subject: "Verify your email - SEO PluginPress",
+      subject: `Verify your email - ${appConfig.name}`,
       react: EmailVerification({ verificationUrl, name }),
     });
 

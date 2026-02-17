@@ -30,8 +30,8 @@ export function EmailVerification({ verificationUrl, name }: EmailVerificationPr
                 </h1>
                 <p>Hi {name || "there"},</p>
                 <p>
-                  Thanks for signing up for SEO PluginPress. Please verify your email
-                  address by clicking the link below:
+                  Thanks for signing up. Please verify your email address by
+                  clicking the link below:
                 </p>
                 <p>
                   <a

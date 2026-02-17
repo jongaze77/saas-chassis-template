@@ -2,16 +2,12 @@
 
 import type { LucideIcon } from "lucide-react";
 import {
-  Activity,
-  ClipboardList,
-  Globe,
   LayoutDashboard,
-  ListChecks,
   Settings,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import { UserNav } from "@/components/shared/UserNav";
 import {
@@ -26,6 +22,7 @@ import {
   SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { appConfig } from "@/lib/config";
 
 interface NavItem {
   title: string;
@@ -36,18 +33,14 @@ interface NavItem {
 const TABLET_MIN = 768;
 const TABLET_MAX = 1023;
 
-const baseNavItems: NavItem[] = [
+const navItems: NavItem[] = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Triage", url: "/triage", icon: ListChecks },
-  { title: "Sites", url: "/sites", icon: Globe },
-  { title: "Activity", url: "/activity", icon: Activity },
   { title: "Settings", url: "/settings", icon: Settings },
 ];
 
 interface AppSidebarProps {
   userName: string | null | undefined;
   userEmail: string | null | undefined;
-  showAssignments?: boolean;
   /** When false (no cookie), collapse sidebar on tablet viewport per AC3 */
   hasCookiePreference?: boolean;
 }
@@ -55,7 +48,6 @@ interface AppSidebarProps {
 export function AppSidebar({
   userName,
   userEmail,
-  showAssignments = false,
   hasCookiePreference = true,
 }: AppSidebarProps) {
   const pathname = usePathname();
@@ -85,31 +77,15 @@ export function AppSidebar({
     // default applied on mount, not a reactive sidebar state watcher.
   }, [hasCookiePreference, setOpen]);
 
-  const navItems = useMemo(() => {
-    const items = [...baseNavItems];
-    if (showAssignments) {
-      // Insert Assignments before Settings. Use findIndex for position-safe
-      // insertion that survives nav item reordering.
-      const settingsIndex = items.findIndex((item) => item.title === "Settings");
-      const insertAt = settingsIndex >= 0 ? settingsIndex : items.length;
-      items.splice(insertAt, 0, {
-        title: "Assignments",
-        url: "/assignments",
-        icon: ClipboardList,
-      });
-    }
-    return items;
-  }, [showAssignments]);
-
   return (
     <Sidebar variant="sidebar" collapsible="icon" side="left">
       <SidebarHeader className="border-b">
         <div className="flex h-10 items-center gap-2 px-2">
           {isCollapsed ? (
-            <span className="text-lg font-bold text-sidebar-primary">SP</span>
+            <span className="text-lg font-bold text-sidebar-primary">{appConfig.shortName}</span>
           ) : (
             <span className="text-lg font-semibold text-sidebar-foreground">
-              SEO PluginPress
+              {appConfig.name}
             </span>
           )}
         </div>

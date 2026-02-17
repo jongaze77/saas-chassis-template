@@ -38,29 +38,20 @@ describe("AppSidebar", () => {
       expect(appSidebarModule.AppSidebar).toBeDefined();
     });
 
-    it("defines exactly 5 base navigation items", async () => {
-      // The baseNavItems are not exported but we can verify via the component source.
-      // Since we can't render in node env, we test the expected nav structure.
+    it("defines exactly 2 navigation items", async () => {
       const expectedNavItems = [
         { title: "Dashboard", url: "/dashboard" },
-        { title: "Triage", url: "/triage" },
-        { title: "Sites", url: "/sites" },
-        { title: "Activity", url: "/activity" },
         { title: "Settings", url: "/settings" },
       ];
-      // Verify structure matches AC1 requirements
-      expect(expectedNavItems).toHaveLength(5);
+      expect(expectedNavItems).toHaveLength(2);
       expect(expectedNavItems.map((item) => item.title)).toEqual([
         "Dashboard",
-        "Triage",
-        "Sites",
-        "Activity",
         "Settings",
       ]);
     });
 
     it("all nav items have absolute URL paths starting with /", () => {
-      const navUrls = ["/dashboard", "/triage", "/sites", "/activity", "/settings"];
+      const navUrls = ["/dashboard", "/settings"];
       navUrls.forEach((url) => {
         expect(url).toMatch(/^\//);
       });
@@ -87,49 +78,6 @@ describe("AppSidebar", () => {
 
     it("exact match correctly activates /dashboard on /dashboard", () => {
       expect(isActive("/dashboard", "/dashboard")).toBe(true);
-    });
-  });
-
-  describe("feature flags", () => {
-    it("accepts showAssignments prop with default value false", () => {
-      // Verify the component accepts the prop without error at the type level.
-      // The prop defaults to false, hiding the Assignments nav item.
-      expect(AppSidebar.length).toBeGreaterThanOrEqual(0);
-    });
-
-    it("when showAssignments=true, Assignments is inserted before Settings", () => {
-      // Verify the findIndex-based insertion: Assignments goes before Settings
-      const baseItems = ["Dashboard", "Triage", "Sites", "Activity", "Settings"];
-      const withAssignments = [...baseItems];
-      const settingsIndex = withAssignments.findIndex((item) => item === "Settings");
-      withAssignments.splice(settingsIndex, 0, "Assignments");
-      expect(withAssignments).toEqual([
-        "Dashboard",
-        "Triage",
-        "Sites",
-        "Activity",
-        "Assignments",
-        "Settings",
-      ]);
-    });
-
-    it("Assignments insertion is safe even if Settings is missing", () => {
-      const baseItems = ["Dashboard", "Triage", "Sites", "Activity"];
-      const withAssignments = [...baseItems];
-      const settingsIndex = withAssignments.findIndex((item) => item === "Settings");
-      const insertAt = settingsIndex >= 0 ? settingsIndex : withAssignments.length;
-      withAssignments.splice(insertAt, 0, "Assignments");
-      // Falls back to appending at end
-      expect(withAssignments[withAssignments.length - 1]).toBe("Assignments");
-    });
-
-    it("Assignments uses ClipboardList icon (distinct from Triage's ListChecks)", async () => {
-      // Verify icons are different for visual differentiation
-      // Import both icons to confirm they are distinct objects
-      const lucideReact = await import("lucide-react");
-      expect(lucideReact.ListChecks).toBeDefined();
-      expect(lucideReact.ClipboardList).toBeDefined();
-      expect(lucideReact.ListChecks).not.toBe(lucideReact.ClipboardList);
     });
   });
 

@@ -1,14 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // Mock dependencies BEFORE importing the module under test
-vi.mock("@/lib/email/resend", () => ({
-  resend: {
-    emails: {
-      send: vi.fn(),
+vi.mock("@/lib/email/resend", async () => {
+  const { appConfig } = await import("@/lib/config");
+  return {
+    resend: {
+      emails: {
+        send: vi.fn(),
+      },
     },
-  },
-  EMAIL_FROM: "SEO PluginPress <onboarding@resend.dev>",
-}));
+    EMAIL_FROM: appConfig.email.from,
+  };
+});
 
 vi.mock("@/lib/email/templates/emailChange", () => ({
   EmailChange: vi.fn().mockReturnValue({ type: "div", props: {} }),
@@ -49,6 +52,7 @@ vi.mock("@/lib/inngest/client", () => {
   }));
 });
 
+import { appConfig } from "@/lib/config";
 import { resend } from "@/lib/email/resend";
 import { EmailChange } from "@/lib/email/templates/emailChange";
 import { sendEmailChangeEmail } from "@/lib/inngest/functions/sendEmailChangeEmail";
@@ -95,9 +99,9 @@ describe("sendEmailChangeEmail Inngest function", () => {
     });
 
     expect(resend.emails.send).toHaveBeenCalledWith({
-      from: "SEO PluginPress <onboarding@resend.dev>",
+      from: appConfig.email.from,
       to: "newemail@example.com",
-      subject: "Confirm your new email address - SEO PluginPress",
+      subject: `Confirm your new email address - ${appConfig.name}`,
       react: expect.anything(),
     });
   });

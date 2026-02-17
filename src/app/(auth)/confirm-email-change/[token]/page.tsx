@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { confirmEmailChange } from "@/actions/settings";
+import { appConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Confirm Email Change - SEO PluginPress",
-  description: "Confirm your email address change for SEO PluginPress",
+  title: `Confirm Email Change - ${appConfig.name}`,
+  description: `Confirm your email address change for ${appConfig.name}`,
 };
 
 export default async function ConfirmEmailChangePage({

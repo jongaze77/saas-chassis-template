@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { RegisterForm } from "@/components/auth/RegisterForm";
+import { appConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
-  title: "Register - SEO PluginPress",
-  description: "Create your SEO PluginPress account",
+  title: `Register - ${appConfig.name}`,
+  description: `Create your ${appConfig.name} account`,
 };
 
 export default function RegisterPage() {

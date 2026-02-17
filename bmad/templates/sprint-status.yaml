@@ -1,0 +1,26 @@
+sprint:
+  number: 1
+  name: "Sprint 1"
+  start_date: "YYYY-MM-DD"
+  end_date: "YYYY-MM-DD"
+  status: "in_progress" # planned | in_progress | completed
+
+epic:
+  id: "epic-1"
+  title: "Platform Foundation"
+  description: "Core platform infrastructure and auth system"
+
+stories:
+  - id: "story-1"
+    title: "Story title"
+    status: "pending" # pending | in_progress | review | completed
+    assignee: ""
+    points: 0
+    notes: ""
+
+blockers: []
+
+retrospective:
+  what_went_well: []
+  what_to_improve: []
+  action_items: []

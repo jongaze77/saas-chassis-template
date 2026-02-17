@@ -1,3 +1,4 @@
+import { appConfig } from "@/lib/config";
 import { EMAIL_FROM, resend } from "@/lib/email/resend";
 import { EmailChange } from "@/lib/email/templates/emailChange";
 import { env } from "@/lib/env";
@@ -15,7 +16,7 @@ export const sendEmailChangeEmail = inngest.createFunction(
     const { error } = await resend.emails.send({
       from: EMAIL_FROM,
       to: email,
-      subject: "Confirm your new email address - SEO PluginPress",
+      subject: `Confirm your new email address - ${appConfig.name}`,
       react: EmailChange({ verificationUrl, name, newEmail: email }),
     });
 
